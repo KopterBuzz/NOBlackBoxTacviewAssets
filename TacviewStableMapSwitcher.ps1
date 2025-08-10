@@ -42,6 +42,7 @@ if (!$target)
     $terrainTargets.Keys
     Write-Host "Re-Run this tool with -target "Target Terrain ID" to switch the default Tacview Terrain!"
     Write-Host 'Example: .\TacviewStableMapSwitcher.ps1 -target "NuclearOption.Terrain1"'
+    Exit 0
 } 
 
 if ($null -eq $terrainTargets[$target]) {
