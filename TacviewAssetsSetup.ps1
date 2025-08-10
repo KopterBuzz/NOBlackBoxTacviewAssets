@@ -34,13 +34,21 @@ foreach ($path in $targetPaths.Values)
     }
 }
 
+$terrainXmlDir = ".\terrain\*.xml"
+$texturesXmlDir = ".\textures\*.xml"
+if ($target -eq "Stable")
+{
+    $terrainXmlDir = ".\terrainxml_stable\*.xml"
+    $texturesXmlDir = ".\texturesxml_stable\*.xml"
+}
+
 Write-Host installing Database XML to $targetPaths["database"] ...
 Get-ChildItem ".\database\*.xml" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["database"] -Force}
 Write-Host installing Meshes to $targetPaths["meshes"] ...
 Get-ChildItem ".\meshes\*.obj" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["meshes"] -Force}
 Write-Host installing Terrain to $targetPaths["terrain"]
-Get-ChildItem ".\terrain\*.xml" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["terrain"] -Force}
+Get-ChildItem $terrainXmlDir | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["terrain"] -Force}
 Get-ChildItem ".\terrain\*.raw" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["terrain"] -Force}
 Write-Host installing Textures to $targetPaths["textures"]
-Get-ChildItem ".\textures\*.xml" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["textures"] -Force}
+Get-ChildItem $texturesXmlDir | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["textures"] -Force}
 Get-ChildItem ".\textures\*.png" | select -ExpandProperty fullname | foreach {$_;Copy-Item $_ $targetPaths["textures"] -Force}
